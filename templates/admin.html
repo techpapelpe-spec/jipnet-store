@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Admin Seguro - JipNet Store</title>
+    <title>Gerenciar Produtos - JipNet Store</title>
     <link href="https://jsdelivr.net" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background-color: #f4f6f9; padding-top: 30px; }
-        .box-admin { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; }
+        body { font-family: sans-serif; background-color: #f4f6f9; padding: 30px 0; }
+        .box-admin { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .btn-salvar { background-color: #198754; color: white; font-weight: bold; width: 100%; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="box-admin">
-            <h2 class="text-center fw-bold mb-4 text-dark">🔐 Painel Admin Seguro</h2>
+        <!-- BLOCO 1: Formulário de Cadastro / Edição -->
+        <div class="box-admin max-width-600 mx-auto" style="max-width: 600px;">
+            <h2 class="text-center fw-bold mb-4 text-dark">📦 Cadastrar / Editar Produto</h2>
             
-            <!-- Adicionado enctype para permitir upload de arquivos de imagem -->
             <form action="/admin/cadastrar" method="POST" enctype="multipart/form-data">
                 
-                <!-- CAMPO DE SEGURANÇA: Senha de Acesso -->
+                <!-- Chave de Segurança Obrigatória -->
                 <div class="mb-3 bg-light p-3 rounded border">
                     <label class="form-label fw-bold text-danger">Chave de Acesso Admin</label>
                     <input type="password" name="senha_admin" class="form-control" placeholder="Digita a tua senha secreta" required>
@@ -28,40 +28,109 @@
 
                 <hr>
 
+                <!-- Campo Invisível para sabermos se estamos a editar um produto existente -->
+                <input type="hidden" name="produto_id" id="form_id">
+
                 <div class="mb-3">
                     <label class="form-label fw-bold">Nome do Produto</label>
-                    <input type="text" name="nome" class="form-control" placeholder="Ex: Roteador Giga Wifi" required>
+                    <input type="text" name="nome" id="form_nome" class="form-control" placeholder="Ex: Roteador Giga Wifi" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Descrição</label>
-                    <textarea name="descricao" class="form-control" rows="3" placeholder="Detalhes sobre o produto..." required></textarea>
+                    <textarea name="descricao" id="form_descricao" class="form-control" rows="3" placeholder="Detalhes sobre o produto..." required></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Preço de Venda (R$)</label>
-                    <input type="number" name="preco" step="0.01" class="form-control" placeholder="0.00" required>
+                    <input type="number" name="preco" id="form_preco" step="0.01" class="form-control" placeholder="0.00" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Quantidade em Stock</label>
-                    <input type="number" name="stock" class="form-control" placeholder="10" required>
+                    <input type="number" name="stock" id="form_stock" class="form-control" placeholder="10" required>
                 </div>
 
-                <!-- NOVO CAMPO: Upload de Imagem automático -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Foto do Produto (PNG, JPG, JPEG)</label>
-                    <input type="file" name="foto_produto" class="form-control" accept="image/*" required>
+                    <label class="form-label fw-bold">Foto do Produto (Deixa em branco se não quiseres alterar a foto atual)</label>
+                    <input type="file" name="foto_produto" class="form-control" accept="image/*">
                 </div>
 
-                <button type="submit" class="btn btn-salvar py-2 mt-2">Gravar Produto e Salvar Imagem</button>
+                <button type="submit" class="btn btn-salvar py-2 mt-2">Gravar Alterações / Produto</button>
             </form>
+        </div>
+
+        <!-- BLOCO 2: Tabela de Gestão de Produtos Existentes -->
+        <div class="box-admin">
+            <h3 class="fw-bold mb-4 text-dark">📋 Produtos Cadastrados</h3>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Stock</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in lista_produtos %}
+                        <tr>
+                            <td><img src="{{ item[4] }}" style="width: 50px; height: 50px; object-fit: contain;"></td>
+                            <td><strong>{{ item[1] }}</strong></td>
+                            <td class="text-success fw-bold">R$ {{ item[3] }}</td>
+                            <td>{{ item[2] }} un</td>
+                            <td class="text-end">
+                                <!-- Botão Editar (Usa Javascript em baixo para preencher o formulário lá em cima na hora) -->
+                                <button class="btn btn-warning btn-sm fw-bold me-1" 
+                                        onclick="preencherFormulario('{{ item[0] }}', '{{ item[1] }}', '{{ item[2] }}', '{{ item[3] }}', '{{ item[1]|replace("\n", " ")|replace("\r", "") }}')">
+                                    Editar
+                                </button>
+                                
+                                <!-- Formulário de Exclusão Segura -->
+                                <form action="/admin/excluir/{{ item[0] }}" method="POST" style="display: inline;" onsubmit="return confirmarExclusao()">
+                                    <input type="hidden" name="senha_admin_excluir" class="senha-hidden">
+                                    <button type="submit" class="btn btn-danger btn-sm fw-bold" onclick="copiarSenha(this)">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             
             <div class="text-center mt-4">
                 <a href="/" class="text-decoration-none text-secondary">← Voltar para a Loja</a>
             </div>
         </div>
     </div>
+
+    <!-- CÓDIGO JAVASCRIPT PARA TORNAR A PÁGINA DINÂMICA -->
+    <script>
+        function preencherFormulario(id, nome, stock, preco, descricao) {
+            document.getElementById('form_id').value = id;
+            document.getElementById('form_nome').value = nome;
+            document.getElementById('form_stock').value = stock;
+            document.getElementById('form_preco').value = preco;
+            document.getElementById('form_descricao').value = descricao;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copiarSenha(botao) {
+            const senha = document.querySelector('input[name="senha_admin"]').value;
+            botao.closest('form').querySelector('.senha-hidden').value = senha;
+        }
+
+        function confirmarExclusao() {
+            const senha = document.querySelector('input[name="senha_admin"]').value;
+            if (!senha) {
+                alert("Por favor, digita a Chave de Acesso Admin lá no topo antes de clicar em Excluir!");
+                return false;
+            }
+            return confirm("Tens a certeza absoluta que queres eliminar este produto?");
+        }
+    </script>
 
 </body>
 </html>
