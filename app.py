@@ -1,10 +1,14 @@
 from flask import Flask, render_template, redirect, request, flash
+from werkzeug.utils import secure_filename
 import psycopg2
 import mercadopago
 import os
 
 app = Flask(__name__)
-app.secret_key = "chave_secreta_para_avisos_da_loja" # Necessário para usar mensagens de aviso (flash)
+app.secret_key = "chave_secreta_para_avisos_da_loja"
+
+# DEFINA A TUA SENHA DE ADMINISTRAÇÃO AQUI:
+SENHA_ADMIN_DEFINIDA = "felipe123"
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://neondb_owner:npg_OuGyv7dWF8bU@ep-mute-bar-aqo4ff4l-pooler.c-8.us-east-1.aws.neon.tech/jipnet_loja_db?sslmode=require&channel_binding=require")
 MERCADOPAGO_TOKEN = os.environ.get("MERCADOPAGO_TOKEN", "APP_USR-2105188313610547-062713-9418d808fb319a50a4623014b0a05d1d-1976170930")
@@ -27,32 +31,53 @@ def home():
     except Exception as erro:
         return f"<h1>Erro ao ligar ao banco Neon:</h1><p>{erro}</p>"
 
-# ROTA 1: Abre a página secreta do formulário
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
 
-# ROTA 2: Recebe os dados do formulário e insere no banco Neon
 @app.route('/admin/cadastrar', methods=['POST'])
 def cadastrar_produto():
     try:
+        # 1. VERIFICAÇÃO DE SEGURANÇA DA SENHA
+        senha_enviada = request.form.get('senha_admin')
+        if senha_enviada != SENHA_ADMIN_DEFINIDA:
+            return "<h1>Acesso Recusado:</h1><p>A chave de acesso inserida está incorreta!</p><br><a href='/admin'>Tentar novamente</a>"
+
         nome = request.form.get('nome')
         descricao = request.form.get('descricao')
         preco = request.form.get('preco')
         stock = request.form.get('stock')
-        imagem_url = request.form.get('imagem_url')
+        
+        # 2. PROCESSO AUTOMÁTICO DE RECEBER E SALVAR A IMAGEM
+        arquivo_foto = request.files.get('foto_produto')
+        
+        if not arquivo_foto or arquivo_foto.filename == '':
+            return "<h1>Erro:</h1><p>Nenhuma imagem foi selecionada!</p>"
 
+        # Cria a pasta 'static' se ela por acaso não existir no servidor
+        pasta_static = os.path.join(app.root_path, 'static')
+        if not os.path.exists(pasta_static):
+            os.makedirs(pasta_static)
+
+        # Gera um nome de arquivo seguro e salva na pasta static do projeto
+        nome_arquivo_seguro = secure_filename(arquivo_foto.filename)
+        caminho_completo_salvar = os.path.join(pasta_static, nome_arquivo_seguro)
+        arquivo_foto.save(caminho_completo_salvar)
+
+        # O caminho que vai para o Neon fica perfeitamente formatado como o Flask precisa
+        caminho_imagem_banco = f"/static/{nome_arquivo_seguro}"
+
+        # 3. GRAVAÇÃO NO BANCO NEON
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute(
             "INSERT INTO produtos (nome, descricao, preco, stock, imagem_url) VALUES (%s, %s, %s, %s, %s);",
-            (nome, descricao, preco, stock, imagem_url)
+            (nome, descricao, preco, stock, caminho_imagem_banco)
         )
         conn.commit()
         cur.close()
         conn.close()
 
-        # Retorna direto para a loja para ver o produto novo inserido
         return redirect('/')
     except Exception as e:
         return f"<h1>Erro ao salvar produto no Neon:</h1><p>{e}</p>"
