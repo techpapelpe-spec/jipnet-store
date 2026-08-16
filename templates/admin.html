@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - JipNet Store</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <style>
+        body { font-family: sans-serif; background-color: #f4f6f9; padding-top: 30px; }
+        .box-admin { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; }
+        .btn-salvar { background-color: #198754; color: white; font-weight: bold; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="box-admin">
+            <h2 class="text-center fw-bold mb-4 text-dark">📦 Cadastrar Novo Produto</h2>
+            
+            <!-- Formulário que envia os dados para o Python -->
+            <form action="/admin/cadastrar" method="POST">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nome do Produto</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Ex: Roteador Giga Wifi" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Descrição</label>
+                    <textarea name="descricao" class="form-control" rows="3" placeholder="Detalhes sobre o produto..." required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Preço de Venda (R$)</label>
+                    <input type="number" name="preco" step="0.01" class="form-control" placeholder="0.00" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Quantidade em Stock</label>
+                    <input type="number" name="stock" class="form-control" placeholder="10" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Caminho da Imagem</label>
+                    <input type="text" name="imagem_url" class="form-control" placeholder="Ex: /static/mop.png" required>
+                </div>
+
+                <button type="submit" class="btn btn-salvar py-2 mt-2">Gravar Produto no Neon</button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <a href="/" class="text-decoration-none text-secondary">← Voltar para a Loja</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
