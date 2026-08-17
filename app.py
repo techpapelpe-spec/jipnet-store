@@ -1,11 +1,14 @@
 from flask import Flask, render_template, redirect, request
 from werkzeug.utils import secure_filename
+import urllib.parse  # <-- ADICIONADO: Para codificar textos de links com segurança
 import psycopg2
 import mercadopago
 import os
 
 app = Flask(__name__)
 app.secret_key = "chave_secreta_para_avisos_da_loja"
+
+# ... (o resto do seu código permanece exatamente igual, sem alterações nas rotas)
 
 SENHA_ADMIN_DEFINIDA = "felipe123"
 

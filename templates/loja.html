@@ -57,11 +57,68 @@
         </div>
         {% endfor %}
 
-    </div>
+</div>
 
     <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
         &copy; 2026 JipNet Store - Todos os direitos reservados.
     </div>
+
+    <!-- ======================================================== -->
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP - JIPNET STORE               -->
+    <!-- ======================================================== -->
+    <style>
+        .whatsapp-fixo-jipnet {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white !important;
+            padding: 12px 22px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            display: inline-flex;
+            align-items: center;
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            transition: transform 0.2s ease-in-out, background-color 0.2s;
+        }
+        .whatsapp-fixo-jipnet:hover {
+            transform: scale(1.05);
+            background-color: #128C7E;
+            color: white !important;
+        }
+        .whatsapp-fixo-jipnet img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        /* Otimização para telemóveis */
+        @media (max-width: 768px) {
+            .whatsapp-fixo-jipnet {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+            .whatsapp-fixo-jipnet img {
+                width: 20px;
+                height: 20px;
+                margin-right: 8px;
+            }
+        }
+    </style>
+
+    <!-- SUBSTITUA O NÚMERO ABAIXO PELO SEU WHATSAPP REAL (Ex: 5581996246670) -->
+    <a href="https://wa.me." 
+       target="_blank" 
+       class="whatsapp-fixo-jipnet">
+        <img src="https://wikimedia.org" alt="Ícone do WhatsApp">
+        Enviar Comprovativo
+    </a>
+    <!-- ======================================================== -->
 
 </body>
 </html>
