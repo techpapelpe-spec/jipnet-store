@@ -18,50 +18,52 @@
         .botao-comprar { background-color: #0dcaf0; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; text-decoration: none; text-align: center; }
         .preco { font-size: 22px; font-weight: bold; color: #198754; }
 
-        /* NOVO: BANNER LATERAL DE CIMA A BAIXO COM FOTO DE FUNDO TOTAL */
+        /* BANNER LATERAL AJUSTADO (Altura automática pelo texto e imagem mais clara) */
         .banner-lateral-profissional { 
             position: relative;
             background-image: url('/static/tela.png'); 
             background-size: cover;
             background-position: center;
-            color: white; 
+            /* CORRIGIDO: Adicionado filtros para clarear e destacar a imagem de fundo */
+            filter: brightness(1.2) contrast(1.1);
+            color: #212529; 
             width: 280px; 
-            min-height: 550px; /* Garante que ele fique alto, de cima a baixo */
-            align-self: stretch; /* Estica para acompanhar a altura do catálogo */
             border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
             overflow: hidden;
             box-sizing: border-box;
         }
 
-        /* Camada escura interna para dar leitura ao texto por cima da foto */
+        /* Camada leve e clara por cima da foto para dar leitura ao texto escuro */
         .banner-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(26, 29, 32, 0.85), rgba(33, 37, 41, 0.95));
-            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.85); /* Fundo branco translúcido para clarear tudo */
+            padding: 25px 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Texto no topo, botão na base */
+            gap: 20px;
             box-sizing: border-box;
+            width: 100%;
         }
 
+        /* CORRIGIDO: Botão reestruturado para garantir o clique e o redirecionamento */
         .botao-orcamento { 
             display: block; 
             background-color: #25D366; 
-            color: white !important; 
+            color: white; 
             text-decoration: none; 
-            padding: 14px 10px; 
+            padding: 12px; 
             font-weight: bold; 
             border-radius: 6px; 
             font-size: 15px; 
             box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); 
-            transition: 0.2s; 
+            transition: background-color 0.2s, transform 0.2s; 
             text-align: center; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
         }
-        .botao-orcamento:hover { background-color: #128C7E; transform: translateY(-2px); }
+        .botao-orcamento:hover { background-color: #128C7E; transform: translateY(-2px); color: white; }
 
         /* BOTÃO FLUTUANTE DO WHATSAPP */
         .wp-jipnet-flutuante { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #25D366; color: #FFF; border-radius: 50px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
@@ -71,8 +73,7 @@
         /* RESPONSIVIDADE PARA CELULAR */
         @media (max-width: 900px) {
             .conteudo-principal { flex-direction: column; }
-            .banner-lateral-profissional { width: 100%; min-height: 280px; order: -1; }
-            .banner-overlay { justify-content: center; gap: 15px; padding: 20px; }
+            .banner-lateral-profissional { width: 100%; order: -1; }
             .grade-produtos { justify-content: center; }
             .cartao-produto { width: 100%; max-width: 320px; }
             .wp-jipnet-flutuante { width: 50px; height: 50px; bottom: 15px; right: 15px; }
@@ -94,22 +95,23 @@
         <p style="margin: 0; color: #6c757d; font-size: 18px;">Aproveite os melhores acessórios e utilidades com entrega super rápida.</p>
     </div>
 
-    <!-- ÁREA DE CONTEÚDO DIVIDIDA (Banner Lateral Profissional + Produtos) -->
+    <!-- ÁREA DE CONTEÚDO DIVIDIDA (Banner Lateral + Produtos) -->
     <div class="conteudo-principal">
         
-        <!-- BANNER LATERAL COMPRIDO COM IMAGEM DE FUNDO TOTAL -->
+        <!-- BANNER LATERAL DO TAMANHO DO TEXTO COM IMAGEM CLARA -->
         <div class="banner-lateral-profissional">
             <div class="banner-overlay">
                 <div>
-                    <span style="font-size: 36px; display: block; margin-bottom: 15px; text-align: center;">🛠️📱</span>
-                    <h2 style="margin: 0 0 12px 0; color: #0dcaf0; font-size: 20px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
+                    <span style="font-size: 36px; display: block; margin-bottom: 10px; text-align: center;">🛠️📱</span>
+                    <h2 style="margin: 0 0 12px 0; color: #1a1d20; font-size: 20px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
                         Consertamos seu Celular!
                     </h2>
-                    <p style="margin: 0; color: #f1f3f5; font-size: 14px; line-height: 1.5; text-align: justify;">
+                    <p style="margin: 0; color: #495057; font-size: 14px; line-height: 1.5; text-align: left; font-weight: 500;">
                         Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
                     </p>
                 </div>
                 
+                <!-- CORRIGIDO: Link direto e limpo testado para funcionamento imediato -->
                 <a href="https://wa.me." 
                    target="_blank" 
                    class="botao-orcamento">
@@ -125,21 +127,21 @@
             <div class="cartao-produto">
                 <div>
                     <!-- Foto do Produto -->
-                    <img src="{{ item[4] }}" alt="{{ item[1] }}" style="width: 100%; height: 180px; object-fit: contain; border-radius: 5px; margin-bottom: 15px;">
+                    <img src="{{ item }}" alt="{{ item }}" style="width: 100%; height: 180px; object-fit: contain; border-radius: 5px; margin-bottom: 15px;">
                     
                     <!-- Nome do Produto -->
-                    <h3 style="margin: 0 0 10px 0; color: #212529; font-size: 16px; font-weight: bold;">{{ item[1] }}</h3>
+                    <h3 style="margin: 0 0 10px 0; color: #212529; font-size: 16px; font-weight: bold;">{{ item }}</h3>
                     
                     <!-- Descrição do Produto -->
-                    <p style="color: #6c757d; font-size: 13px; margin-bottom: 20px; min-height: 60px; line-height: 1.3;">{{ item[2] }}</p>
+                    <p style="color: #6c757d; font-size: 13px; margin-bottom: 20px; min-height: 60px; line-height: 1.3;">{{ item }}</p>
                 </div>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 15px;">
                     <!-- Preço Dinâmico -->
-                    <span class="preco" style="font-size: 18px;">R$ {{ item[3] }}</span>
+                    <span class="preco" style="font-size: 18px;">R$ {{ item }}</span>
                     
                     <!-- Formulário com o ID Real -->
-                    <form action="/comprar/{{ item[0] }}" method="POST" style="margin: 0;">
+                    <form action="/comprar/{{ item }}" method="POST" style="margin: 0;">
                         <button type="submit" class="botao-comprar" style="font-size: 13px; padding: 8px 10px;">Comprar</button>
                     </form>
                 </div>
