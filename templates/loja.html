@@ -33,9 +33,9 @@
             box-sizing: border-box;
         }
 
-        /* Camada escura suave translúcida: clareia a foto e dá leitura perfeita ao texto branco */
+        /* AJUSTADO: Camada escura equilibrada para dar destaque máximo e nitidez ao texto */
         .banner-overlay-dark {
-            background: rgba(0, 0, 0, 0.4); 
+            background: rgba(0, 0, 0, 0.55); 
             padding: 25px 20px;
             display: flex;
             flex-direction: column;
@@ -43,6 +43,17 @@
             box-sizing: border-box;
             width: 100%;
             color: #ffffff;
+        }
+
+        /* TEXTOS COM SOMBRA REFORÇADA PARA LEITURA PERFEITA */
+        .texto-nitido-banner {
+            margin: 0; 
+            color: #ffffff; 
+            font-size: 14px; 
+            line-height: 1.5; 
+            text-align: left; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 4px #000000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
 
         /* BOTÃO DO ORÇAMENTO */
@@ -100,16 +111,16 @@
         <!-- COLUNA DA ESQUERDA COM OS DOIS BANNERS -->
         <div class="coluna-servicos">
             
-            <!-- 1º BANNER: CONSERTO DE CELULAR (Imagem tela.png bem destacada) -->
+            <!-- 1º BANNER: CONSERTO DE CELULAR -->
             <div class="banner-servico-box" style="background-image: url('/static/tela.png');">
                 <div class="banner-overlay-dark">
                     <div>
                         <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️📱</span>
-                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
+                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">
                             Consertamos seu Celular!
                         </h2>
-                        <p style="margin: 0; color: #f8f9fa; font-size: 13px; line-height: 1.5; text-align: left; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
-                            Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
+                        <p class="texto-nitido-banner">
+                            Tela quebrada, battery viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
                         </p>
                     </div>
                     <a href="https://wa.me." 
@@ -120,15 +131,15 @@
                 </div>
             </div>
 
-            <!-- 2º BANNER: MANUTENÇÃO DE COMPUTADORES (Imagem conserto.png) -->
+            <!-- 2º BANNER: MANUTENÇÃO DE COMPUTADORES -->
             <div class="banner-servico-box" style="background-image: url('/static/conserto.png');">
                 <div class="banner-overlay-dark">
                     <div>
                         <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️💻</span>
-                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
+                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">
                             Manutenção de PCs!
                         </h2>
-                        <p style="margin: 0; color: #f8f9fa; font-size: 13px; line-height: 1.5; text-align: left; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
+                        <p class="texto-nitido-banner">
                             Computadores, notebooks e impressoras com problemas? Formatação, limpeza preventiva, troca de peças e reparos rápidos com técnico especializado.
                         </p>
                     </div>
