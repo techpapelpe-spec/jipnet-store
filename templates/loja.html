@@ -12,35 +12,37 @@
         /* CONTÊINER PRINCIPAL EM COLUNAS */
         .conteudo-principal { display: flex; gap: 25px; max-width: 1100px; margin: 0 auto; padding: 0 15px; align-items: flex-start; }
         
+        /* COLUNA DA ESQUERDA: JUNTA OS DOIS BANNERS DE SERVIÇOS */
+        .coluna-servicos { display: flex; flex-direction: column; gap: 20px; width: 280px; }
+
         /* CATÁLOGO DE PRODUTOS */
         .grade-produtos { display: flex; gap: 20px; flex: 3; justify-content: flex-start; flex-wrap: wrap; }
         .cartao-produto { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 240px; display: flex; flex-direction: column; justify-content: space-between; }
         .botao-comprar { background-color: #0dcaf0; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; text-decoration: none; text-align: center; }
         .preco { font-size: 22px; font-weight: bold; color: #198754; }
 
-        /* BANNER LATERAL COM A FOTO DIRETAMENTE POR TRÁS */
-        .banner-lateral-profissional { 
+        /* BANNER COM IMAGEM DE FUNDO EM DESTAQUE */
+        .banner-servico-box { 
             position: relative;
-            /* Define a foto tela.png como o plano de fundo do bloco */
-            background-image: url('/static/tela.png'); 
             background-size: cover;
             background-position: center;
             width: 280px; 
             border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
             overflow: hidden;
             box-sizing: border-box;
         }
 
-        /* Camada translúcida que clareia a foto traseira e protege a leitura do texto */
-        .banner-overlay {
-            background: rgba(255, 255, 255, 0.88); 
+        /* Camada escura suave translúcida: clareia a foto e dá leitura perfeita ao texto branco */
+        .banner-overlay-dark {
+            background: rgba(0, 0, 0, 0.4); 
             padding: 25px 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
             box-sizing: border-box;
             width: 100%;
+            color: #ffffff;
         }
 
         /* BOTÃO DO ORÇAMENTO */
@@ -69,7 +71,8 @@
         /* RESPONSIVIDADE PARA CELULAR */
         @media (max-width: 900px) {
             .conteudo-principal { flex-direction: column; }
-            .banner-lateral-profissional { width: 100%; order: -1; }
+            .coluna-servicos { width: 100%; order: -1; }
+            .banner-servico-box { width: 100%; }
             .grade-produtos { justify-content: center; }
             .cartao-produto { width: 100%; max-width: 320px; }
             .wp-jipnet-flutuante { width: 50px; height: 50px; bottom: 15px; right: 15px; }
@@ -82,7 +85,7 @@
     <!-- Menu Superior -->
     <div class="topo-loja">
         <div style="font-size: 20px; font-weight: bold; color: #0dcaf0;">🛒 JipNet Store</div>
-        <div style="font-size: 14px; margin-right: 15px;">Vantagens exclusives para clientes JipNet Telecom</div>
+        <div style="font-size: 14px; margin-right: 15px;">Vantagens exclusivas para clientes JipNet Telecom</div>
     </div>
 
     <!-- Banner Central -->
@@ -91,29 +94,53 @@
         <p style="margin: 0; color: #6c757d; font-size: 18px;">Aproveite os melhores acessórios e utilidades com entrega super rápida.</p>
     </div>
 
-    <!-- ÁREA DE CONTEÚDO DIVIDIDA (Banner Lateral + Produtos) -->
+    <!-- ÁREA DE CONTEÚDO DIVIDIDA -->
     <div class="conteudo-principal">
         
-        <!-- BANNER LATERAL COM FOTO DE FUNDO POR TRÁS DO TEXTO -->
-        <div class="banner-lateral-profissional">
-            <div class="banner-overlay">
-                <div>
-                    <span style="font-size: 36px; display: block; margin-bottom: 10px; text-align: center;">🛠️📱</span>
-                    <h2 style="margin: 0 0 12px 0; color: #1a1d20; font-size: 20px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
-                        Consertamos seu Celular!
-                    </h2>
-                    <p style="margin: 0; color: #495057; font-size: 14px; line-height: 1.5; text-align: left; font-weight: 600;">
-                        Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
-                    </p>
+        <!-- COLUNA DA ESQUERDA COM OS DOIS BANNERS -->
+        <div class="coluna-servicos">
+            
+            <!-- 1º BANNER: CONSERTO DE CELULAR (Imagem tela.png bem destacada) -->
+            <div class="banner-servico-box" style="background-image: url('/static/tela.png');">
+                <div class="banner-overlay-dark">
+                    <div>
+                        <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️📱</span>
+                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
+                            Consertamos seu Celular!
+                        </h2>
+                        <p style="margin: 0; color: #f8f9fa; font-size: 13px; line-height: 1.5; text-align: left; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
+                            Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
+                        </p>
+                    </div>
+                    <a href="https://wa.me." 
+                       target="_blank" 
+                       class="botao-orcamento">
+                        Fazer Orçamento
+                    </a>
                 </div>
-                
-                <a href="https://wa.me" 
-                   target="_blank" 
-                   class="botao-orcamento">
-                    Fazer Orçamento
-                </a>
             </div>
-        </div>
+
+            <!-- 2º BANNER: MANUTENÇÃO DE COMPUTADORES (Imagem conserto.png) -->
+            <div class="banner-servico-box" style="background-image: url('/static/conserto.png');">
+                <div class="banner-overlay-dark">
+                    <div>
+                        <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️💻</span>
+                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px;">
+                            Manutenção de PCs!
+                        </h2>
+                        <p style="margin: 0; color: #f8f9fa; font-size: 13px; line-height: 1.5; text-align: left; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
+                            Computadores, notebooks e impressoras com problemas? Formatação, limpeza preventiva, troca de peças e reparos rápidos com técnico especializado.
+                        </p>
+                    </div>
+                    <a href="https://wa.me." 
+                       target="_blank" 
+                       class="botao-orcamento">
+                        Fazer Orçamento
+                    </a>
+                </div>
+            </div>
+
+        </div> <!-- FIM DA COLUNA DE SERVIÇOS -->
 
         <!-- Vitrine de Produtos -->
         <div class="grade-produtos">
@@ -153,7 +180,7 @@
     </div>
 
     <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
-    <a href="https://wa.me/5581996246670" class="wp-jipnet-flutuante" target="_blank">
+    <a href="https://wa.me" class="wp-jipnet-flutuante" target="_blank">
         <img src="/static/zap.png" alt="WhatsApp">
     </a>
 
