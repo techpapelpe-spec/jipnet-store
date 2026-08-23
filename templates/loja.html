@@ -174,13 +174,15 @@
     <!-- BARRA FIXA DO CARRINHO INTELIGENTE -->
     <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 30px; border-radius: 50px; display: none; align-items: center; gap: 20px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif;">
         <span id="textoCarrinho" style="font-weight: bold;">🛒 0 itens | Total: R$ 0.00</span>
-        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho()" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Pagar Todos por Pix</button>
+        <!-- CORRIGIDO: Nome alterado para evitar confusão com cartão ou boleto -->
+        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho()" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Finalizar Compra</button>
     </div>
 
     <!-- Rodapé -->
     <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
         &copy; 2026 JipNet Store - Todos os direitos reservados.
     </div>
+
 
     <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
     <a href="https://wa.me" class="wp-jipnet-flutuante" target="_blank">
@@ -236,8 +238,10 @@
             if (carrinho.length === 0) return;
             
             const btn = document.getElementById('btnPagarTodos');
-            btn.innerText = "A processar Pix...";
-            btn.disabled = true;            // Dispara para a nova rota unificada do Python no seu app.py
+            btn.innerText = "A processar..."; // AJUSTADO: Texto genérico para carregar
+            btn.disabled = true;
+
+            // Dispara para a nova rota unificada do Python no seu app.py
             fetch('/comprar_carrinho', {
                 method: 'POST',
                 headers: { 
@@ -254,14 +258,14 @@
                     window.location.href = data.init_point; 
                 } else {
                     alert("Erro ao processar carrinho. Tente novamente.");
-                    btn.innerText = "Pagar Todos por Pix";
+                    btn.innerText = "Finalizar Compra"; // AJUSTADO: Texto genérico de erro
                     btn.disabled = false;
                 }
             })
             .catch(error => {
                 console.error('Erro:', error);
                 alert("Falha de conexão com o servidor.");
-                btn.innerText = "Pagar Todos por Pix";
+                btn.innerText = "Finalizar Compra"; // AJUSTADO: Texto genérico de falha
                 btn.disabled = false;
             });
         }
