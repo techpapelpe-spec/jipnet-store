@@ -120,6 +120,47 @@ def excluir_produto(id):
     except Exception as e:
         return f"<h1>Erro ao excluir do Neon:</h1><p>{e}</p>"
 
+# ========================================================
+# NOVA ROTA: MULTIPLOS PRODUTOS (MERCADO PAGO)
+# ========================================================
+@app.route('/comprar_carrinho', methods=['POST'])
+def comprar_carrinho():
+    try:
+        # Recebe a lista de produtos enviados pelo JavaScript do site
+        dados = request.get_json()
+        itens_carrinho = dados.get('itens', [])
+
+        if not itens_carrinho:
+            return {"erro": "Carrinho vazio"}, 400
+
+        # Monta a lista unificada de itens para enviar ao Mercado Pago
+        items_mp = []
+        for item in itens_carrinho:
+            items_mp.append({
+                "title": item['nome'],
+                "quantity": int(item['quantidade']),
+                "currency_id": "BRL",
+                "unit_price": float(item['preco'])
+            })
+
+        url_base = request.host_url
+        preference_data = {
+            "items": items_mp,
+            "back_urls": {"success": url_base, "failure": url_base, "pending": url_base},
+            "auto_return": "approved" # Retorna automaticamente para a sua loja ao pagar
+        }
+        
+        # Cria a preferência unificada no Mercado Pago com todos os itens juntos
+        preference_response = sdk.preference().create(preference_data)
+        
+        # Devolve o link do Pix para o navegador redirecionar o cliente
+        return {"init_point": preference_response["response"]["init_point"]}
+        
+    except Exception as e:
+        return {"erro": str(e)}, 500
+
+
+# SUA ROTA ATUAL (Mantida intacta para caso o cliente queira comprar apenas 1 item direto)
 @app.route('/comprar/<int:produto_id>', methods=['POST'])
 def comprar(produto_id):
     try:

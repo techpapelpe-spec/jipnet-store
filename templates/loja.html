@@ -78,36 +78,35 @@
     <!-- ======================================================== -->
     <!-- NOVO: CARROSSEL DE PRODUTOS DINÂMICO NO TOPO             -->
     <!-- ======================================================== -->
-    <div class="seccao-carrossel">
-        <div class="titulo-carrossel">
+    <div class="seccao-carrossel" style="max-width: 1100px; margin: 0 auto 25px auto; overflow: hidden;">
+        <div class="titulo-carrossel" style="font-weight: bold; margin-bottom: 15px; font-size: 18px; color: #212529;">
             <span>✨</span> Confira Nossa Variedade:
         </div>
-        <div class="carrossel-container">
+        
+        <!-- Contêiner de rolagem automática horizontal via CSS -->
+        <div class="carrossel-container" id="carrosselRolagem" style="display: flex; gap: 15px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 10px;">
             {% for item in produtos %}
-            <div class="item-carrossel">
+            <div class="item-carrossel" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); min-width: 180px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <img src="{{ item[4] }}" alt="{{ item[1] }}">
-                    <h4>{{ item[1] }}</h4>
+                    <img src="{{ item[4] }}" alt="{{ item[1] }}" style="width: 100%; height: 100px; object-fit: contain; margin-bottom: 10px;">
+                    <h4 style="margin: 0 0 5px 0; font-size: 14px; color: #212529; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ item[1] }}</h4>
                 </div>
                 <div>
-                    <span class="preco-carrossel">R$ {{ item[3] }}</span>
-                    <!-- O formulário envia o cliente direto para o checkout do Mercado Pago ao clicar no item do carrossel -->
-                    <form action="/comprar/{{ item[0] }}" method="POST" style="margin: 0;">
-                        <button type="submit" class="botao-carrossel" style="width:100%; border:none; cursor:pointer;">Ver Item</button>
-                    </form>
+                    <span class="preco-carrossel" style="font-weight: bold; color: #198754; display: block; margin-bottom: 8px;">R$ {{ item[3] }}</span>
+                    <button class="botao-add-carrinho" onclick="adicionarAoCarrinho('{{ item[1] }}', '{{ item[3] }}')" style="width: 100%; background-color: #6c757d; color: white; border: none; padding: 6px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 11px;">+ Carrinho</button>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-    <!-- ======================================================== -->
 
-    <!-- ÁREA DE CONTEÚDO DIVIDIDA -->
+    <!-- ======================================================== -->
+    <!-- ÁREA DE CONTEÚDO DIVIDIDA                                -->
+    <!-- ======================================================== -->
     <div class="conteudo-principal">
         
-        <!-- VITRINE DE PRODUTOS (À esquerda no computador e em 1º no mobile) -->
+        <!-- VITRINE DE PRODUTOS -->
         <div class="grade-produtos">
-            
             {% for item in produtos %}
             <div class="cartao-produto">
                 <div>
@@ -116,21 +115,28 @@
                     <p style="color: #6c757d; font-size: 13px; margin-bottom: 20px; min-height: 60px; line-height: 1.3;">{{ item[2] }}</p>
                 </div>
                 
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 15px;">
-                    <span class="preco" style="font-size: 18px;">R$ {{ item[3] }}</span>
-                    <form action="/comprar/{{ item[0] }}" method="POST" style="margin: 0;">
-                        <button type="submit" class="botao-comprar" style="font-size: 13px; padding: 8px 10px;">Comprar Agora</button>
-                    </form>
+                <div style="border-top: 1px solid #eee; padding-top: 15px;">
+                    <div style="margin-bottom: 12px; text-align: center;">
+                        <span class="preco">R$ {{ item[3] }}</span>
+                    </div>
+                    
+                    <div style="display: flex; gap: 8px;">
+                        <!-- Botão 1: Adiciona ao carrinho unificado -->
+                        <button class="botao-add-carrinho" onclick="adicionarAoCarrinho('{{ item[1] }}', '{{ item[3] }}')" style="background-color: #6c757d; color: white; border: none; padding: 8px 10px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 12px; flex: 1;">+ Carrinho</button>
+                        
+                        <!-- Botão 2: Compra imediata de um único item -->
+                        <form action="/comprar/{{ item[0] }}" method="POST" style="margin: 0; flex: 1;">
+                            <button type="submit" class="botao-comprar" style="width: 100%; font-size: 12px; padding: 8px 10px;">Pagar Só Este</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             {% endfor %}
-
         </div>
 
         <!-- COLUNA DA DIREITA COM OS BANNERS DE MANUTENÇÃO -->
         <div class="coluna-servicos">
-            
-            <!-- 1º BANNER: CONSERTO DE CELULAR -->
+            <!-- 1º BANNER: CELULARES -->
             <div class="banner-servico-box" style="background-image: url('/static/tela.png');">
                 <div class="banner-overlay-dark">
                     <div>
@@ -139,3 +145,128 @@
                             Consertamos seu Celular!
                         </h2>
                         <p class="texto-nitido-banner">
+                            Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
+                        </p>
+                    </div>
+                    <a href="https://wa.me." target="_blank" class="botao-orcamento">Fazer Orçamento</a>
+                </div>
+            </div>
+
+            <!-- 2º BANNER: COMPUTADORES -->
+            <div class="banner-servico-box" style="background-image: url('/static/conserto.png');">
+                <div class="banner-overlay-dark">
+                    <div>
+                        <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️💻</span>
+                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">
+                            Manutenção de PCs!
+                        </h2>
+                        <p class="texto-nitido-banner">
+                            Computadores, notebooks e impressoras com problemas? Formatação, limpeza preventiva, troca de peças e reparos rápidos com técnico especializado.
+                        </p>
+                    </div>
+                    <a href="https://wa.me." target="_blank" class="botao-orcamento">Fazer Orçamento</a>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- FIM DA ÁREA DIVIDIDA -->
+
+    <!-- BARRA FIXA DO CARRINHO INTELIGENTE -->
+    <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 30px; border-radius: 50px; display: none; align-items: center; gap: 20px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif;">
+        <span id="textoCarrinho" style="font-weight: bold;">🛒 0 itens | Total: R$ 0.00</span>
+        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho()" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Pagar Todos por Pix</button>
+    </div>
+
+    <!-- Rodapé -->
+    <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
+        &copy; 2026 JipNet Store - Todos os direitos reservados.
+    </div>
+
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+    <a href="https://wa.me" class="wp-jipnet-flutuante" target="_blank">
+        <img src="/static/zap.png" alt="WhatsApp">
+    </a>
+
+    <!-- LÓGICA DO CARROSSEL DE ROLAGEM E CARRINHO -->
+    <script>
+        // Rolagem Automática do Carrossel de Produtos
+        const carrossel = document.getElementById('carrosselRolagem');
+        function rolagemAutomatica() {
+            if (carrossel) {
+                // Se chegar ao fim da lista, volta para o início
+                if (carrossel.scrollLeft + carrossel.clientWidth >= carrossel.scrollWidth - 5) {
+                    carrossel.scrollLeft = 0;
+                } else {
+                    carrossel.scrollLeft += 200; // Avança uma largura de cartão
+                }
+            }
+        }
+        setInterval(rolagemAutomatica, 4000); // Rola a cada 4 segundos
+
+        // Sistema de Memória do Carrinho (LocalStorage)
+        let carrinho = [];
+
+        function adicionarAoCarrinho(nome, preco) {
+            let itemExistente = carrinho.find(item => item.nome === nome);
+            if (itemExistente) {
+                itemExistente.quantidade += 1;
+            } else {
+                carrinho.push({ nome: nome, preco: parseFloat(preco), quantidade: 1 });
+            }
+            atualizarBarraCarrinho();
+        }
+
+        function atualizarBarraCarrinho() {
+            const barra = document.getElementById('barraCarrinho');
+            const texto = document.getElementById('textoCarrinho');
+            
+            if (carrinho.length === 0) {
+                barra.style.display = 'none';
+                return;
+            }
+            
+            let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+            let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
+            
+            barra.style.display = 'flex';
+            texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`;
+        }
+
+        function finalizarCompraCarrinho() {
+            if (carrinho.length === 0) return;
+            
+            const btn = document.getElementById('btnPagarTodos');
+            btn.innerText = "A processar Pix...";
+            btn.disabled = true;            // Dispara para a nova rota unificada do Python no seu app.py
+            fetch('/comprar_carrinho', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({ itens: carrinho })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.init_point) {
+                    carrinho = [];
+                    atualizarBarraCarrinho();
+                    // Abre o Mercado Pago unificado com o valor total somado
+                    window.location.href = data.init_point; 
+                } else {
+                    alert("Erro ao processar carrinho. Tente novamente.");
+                    btn.innerText = "Pagar Todos por Pix";
+                    btn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert("Falha de conexão com o servidor.");
+                btn.innerText = "Pagar Todos por Pix";
+                btn.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
+
+
