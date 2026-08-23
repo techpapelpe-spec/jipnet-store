@@ -171,12 +171,29 @@
 
     </div> <!-- FIM DA ÁREA DIVIDIDA -->
 
-    <!-- BARRA FIXA DO CARRINHO INTELIGENTE -->
-    <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 30px; border-radius: 50px; display: none; align-items: center; gap: 20px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif;">
-        <span id="textoCarrinho" style="font-weight: bold;">🛒 0 itens | Total: R$ 0.00</span>
-        <!-- CORRIGIDO: Nome alterado para evitar confusão com cartão ou boleto -->
-        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho()" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Finalizar Compra</button>
+    <!-- ======================================================== -->
+    <!-- JANELA ESCONDIDA + BARRA DO CARRINHO INTELIGENTE UNIFICADA -->
+    <!-- ======================================================== -->
+    
+    <!-- 1. Janela de Revisão (Aparece ao clicar na barra preta) -->
+    <div id="janelaItensCarrinho" style="position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background-color: #ffffff; border: 2px solid #1a1d20; width: 340px; max-height: 250px; overflow-y: auto; border-radius: 12px; display: none; flex-direction: column; box-shadow: 0 -5px 25px rgba(0,0,0,0.2); z-index: 99998; font-family: sans-serif; box-sizing: border-box;">
+        <div style="background-color: #1a1d20; color: white; padding: 10px 15px; font-weight: bold; font-size: 14px; display: flex; justify-content: space-between; align-items: center;">
+            <span>Itens no seu Pedido:</span>
+            <!-- Botão para fechar a caixinha -->
+            <button onclick="toggleJanelaCarrinho(event)" style="background: none; border: none; color: white; cursor: pointer; font-weight: bold; font-size: 16px;">✕</button>
+        </div>
+        <!-- É aqui dentro que o JavaScript injeta os produtos com o botão de apagar -->
+        <div id="listaItensInterna" style="padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+        </div>
     </div>
+
+    <!-- 2. Barra Fixa de Resumo (Agora clicável para abrir a lista) -->
+    <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 25px; border-radius: 50px; display: none; align-items: center; gap: 15px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif; cursor: pointer;" onclick="toggleJanelaCarrinho(event)">
+        <span id="textoCarrinho" style="font-weight: bold; font-size: 14px;">🛒 0 itens | Total: R$ 0.00</span>
+        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho(event)" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Finalizar Compra</button>
+    </div>
+    <!-- ======================================================== -->
+
 
     <!-- Rodapé -->
     <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
@@ -205,7 +222,7 @@
         }
         setInterval(rolagemAutomatica, 4000); // Rola a cada 4 segundos
 
-        // Sistema de Memória do Carrinho (LocalStorage)
+        // Sistema de Memória do Carrinho Avançado (Sem mexer no banco)
         let carrinho = [];
 
         function adicionarAoCarrinho(nome, preco) {
@@ -218,30 +235,77 @@
             atualizarBarraCarrinho();
         }
 
+        // NOVO: Função para diminuir quantidade ou apagar o produto
+        function removerDoCarrinho(nome) {
+            let itemIndex = carrinho.findIndex(item => item.nome === nome);
+            if (itemIndex > -1) {
+                carrinho[itemIndex].quantidade -= 1;
+                if (carrinho[itemIndex].quantidade <= 0) {
+                    carrinho.splice(itemIndex, 1); // Remove da lista se chegar a zero
+                }
+            }
+            atualizarBarraCarrinho();
+        }
+
+        // NOVO: Abre e fecha a caixinha de revisão de produtos ao clicar na barra
+        function toggleJanelaCarrinho(event) {
+            if (event) event.stopPropagation(); // Evita conflitos de cliques no botão
+            const janela = document.getElementById('janelaItensCarrinho');
+            if (carrinho.length === 0) {
+                if(janela) janela.style.display = 'none';
+                return;
+            }
+            if(janela) {
+                janela.style.display = (janela.style.display === 'flex') ? 'none' : 'flex';
+            }
+        }
+
         function atualizarBarraCarrinho() {
             const barra = document.getElementById('barraCarrinho');
             const texto = document.getElementById('textoCarrinho');
+            const listaInterna = document.getElementById('listaItensInterna');
+            const janela = document.getElementById('janelaItensCarrinho');
             
             if (carrinho.length === 0) {
-                barra.style.display = 'none';
+                if(barra) barra.style.display = 'none';
+                if(janela) janela.style.display = 'none';
                 return;
             }
             
             let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
             let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
             
-            barra.style.display = 'flex';
-            texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`;
+            if(barra) barra.style.display = 'flex';
+            if(texto) texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`;
+
+            // NOVO: Constrói a lista visual com os botões de apagar (✕)
+            if(listaInterna) {
+                listaInterna.innerHTML = "";
+                carrinho.forEach(item => {
+                    let subtotal = item.preco * item.quantidade;
+                    listaInterna.innerHTML += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; font-size: 13px; color: #333;">
+                            <div style="flex: 1; padding-right: 5px; text-align: left;">
+                                <strong>${item.quantidade}x</strong> ${item.nome}
+                                <span style="display:block; font-size:11px; color:#888;">Sub: R$ ${subtotal.toFixed(2)}</span>
+                            </div>
+                            <button onclick="removerDoCarrinho('${item.nome}')" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">✕</button>
+                        </div>
+                    `;
+                });
+            }
         }
 
-        function finalizarCompraCarrinho() {
+        function finalizarCompraCarrinho(event) {
+            if (event) event.stopPropagation(); // Impede fechar a janela ao clicar em pagar
             if (carrinho.length === 0) return;
             
             const btn = document.getElementById('btnPagarTodos');
-            btn.innerText = "A processar..."; // AJUSTADO: Texto genérico para carregar
-            btn.disabled = true;
+            if(btn) {
+                btn.innerText = "A processar...";
+                btn.disabled = true;
+            }
 
-            // Dispara para a nova rota unificada do Python no seu app.py
             fetch('/comprar_carrinho', {
                 method: 'POST',
                 headers: { 
@@ -254,19 +318,22 @@
                 if (data.init_point) {
                     carrinho = [];
                     atualizarBarraCarrinho();
-                    // Abre o Mercado Pago unificado com o valor total somado
                     window.location.href = data.init_point; 
                 } else {
                     alert("Erro ao processar carrinho. Tente novamente.");
-                    btn.innerText = "Finalizar Compra"; // AJUSTADO: Texto genérico de erro
-                    btn.disabled = false;
+                    if(btn) {
+                        btn.innerText = "Finalizar Compra";
+                        btn.disabled = false;
+                    }
                 }
             })
             .catch(error => {
                 console.error('Erro:', error);
                 alert("Falha de conexão com o servidor.");
-                btn.innerText = "Finalizar Compra"; // AJUSTADO: Texto genérico de falha
-                btn.disabled = false;
+                if(btn) {
+                    btn.innerText = "Finalizar Compra";
+                    btn.disabled = false;
+                }
             });
         }
     </script>
