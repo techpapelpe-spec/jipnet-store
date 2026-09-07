@@ -69,11 +69,40 @@
         <div style="font-size: 14px; margin-right: 15px;">Vantagens exclusivas para clientes JipNet Telecom</div>
     </div>
 
-    <!-- Banner Central -->
+  <!-- Banner Central -->
     <div class="banner">
         <h1 style="margin: 0 0 10px 0; color: #212529;">Bem-vindo à JipNet Store!</h1>
         <p style="margin: 0; color: #6c757d; font-size: 18px;">Aproveite os melhores acessórios e utilidades com entrega super rápida.</p>
     </div>
+
+    <!-- ======================================================== -->
+    <!-- ADICIONADO: BARRA COMPACTA E LARGURA TOTAL - CASA SEGURA -->
+    <!-- ======================================================== -->
+    <div style="background: linear-gradient(135deg, #1a1d20, #212529); color: white; padding: 12px 20px; margin: 0 auto 25px auto; max-width: 1100px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 4px solid #ffc107; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-family: sans-serif;">
+        
+        <!-- Lado Esquerdo: Ícone + Texto Curto -->
+        <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 260px;">
+            <span style="font-size: 24px; line-height: 1;">🛡️</span>
+            <div style="text-align: left;">
+                <strong style="color: #ffc107; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block;">
+                    Casa Segura JipNet
+                </strong>
+                <span style="color: #e9ecef; font-size: 13px; font-weight: 500;">
+                    Câmeras HD inteligentes + Internet prioritária por apenas <strong>R$ 29,90/mês</strong> na fatura.
+                </span>
+            </div>
+        </div>
+
+        <!-- Lado Direito: Botão Verde Redondo -->
+        <div>
+            <a href="https://wa.me." 
+               target="_blank" 
+               style="display: inline-block; background-color: #25D366; color: white !important; text-decoration: none; padding: 8px 16px; font-weight: bold; border-radius: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 6px rgba(37,211,102,0.2); white-space: nowrap;">
+                Quero Proteger
+            </a>
+        </div>
+    </div>
+    <!-- ======================================================== -->
 
     <!-- ======================================================== -->
     <!-- NOVO: CARROSSEL DE PRODUTOS DINÂMICO NO TOPO             -->
@@ -148,7 +177,7 @@
                             Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
                         </p>
                     </div>
-                    <a href="https://wa.me/5581996246670." target="_blank" class="botao-orcamento">Fazer Orçamento</a>
+                    <a href="https://wa.me/5581996246670" target="_blank" class="botao-orcamento">Fazer Orçamento</a>
                 </div>
             </div>
 
@@ -164,7 +193,7 @@
                             Computadores, notebooks e impressoras com problemas? Formatação, limpeza preventiva, troca de peças e reparos rápidos com técnico especializado.
                         </p>
                     </div>
-                    <a href="https://wa.me/5581996246670." target="_blank" class="botao-orcamento">Fazer Orçamento</a>
+                    <a href="https://wa.me/5581996246670" target="_blank" class="botao-orcamento">Fazer Orçamento</a>
                 </div>
             </div>
         </div>
@@ -182,10 +211,6 @@
             <!-- Botão para fechar a caixinha -->
             <button onclick="toggleJanelaCarrinho(event)" style="background: none; border: none; color: white; cursor: pointer; font-weight: bold; font-size: 16px;">✕</button>
         </div>
-        <!-- É aqui dentro que o JavaScript injeta os produtos com o botão de apagar -->
-        <div id="listaItensInterna" style="padding: 10px; display: flex; flex-direction: column; gap: 8px;">
-        </div>
-    </div>
 
     <!-- 2. Barra Fixa de Resumo (Agora clicável para abrir a lista) -->
     <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 25px; border-radius: 50px; display: none; align-items: center; gap: 15px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif; cursor: pointer;" onclick="toggleJanelaCarrinho(event)">
