@@ -9,13 +9,10 @@
         .topo-loja { background-color: #1a1d20; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
         .banner { background-color: white; padding: 30px; margin: 20px auto; max-width: 1100px; text-align: center; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         
-        /* ======================================================== */
-        /* NOVO: ESTILO DO CARROSSEL DE PRODUTOS DO TOPO           */
-        /* ======================================================== */
+        /* CARROSSEL DE PRODUTOS DO TOPO */
         .seccao-carrossel { max-width: 1100px; margin: 0 auto 30px auto; padding: 0 15px; box-sizing: border-box; }
         .titulo-carrossel { font-size: 20px; font-weight: bold; color: #212529; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .carrossel-container { display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-        /* Esconde a barra de rolagem horizontal padrão para ficar mais limpo */
         .carrossel-container::-webkit-scrollbar { height: 6px; }
         .carrossel-container::-webkit-scrollbar-thumb { background-color: #0dcaf0; border-radius: 10px; }
         
@@ -23,9 +20,8 @@
         .item-carrossel img { width: 100%; height: 100px; object-fit: contain; border-radius: 4px; margin-bottom: 8px; }
         .item-carrossel h4 { margin: 0 0 5px 0; font-size: 13px; color: #212529; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .preco-carrossel { font-size: 15px; font-weight: bold; color: #198754; display: block; margin-bottom: 8px; }
-        .botao-carrossel { display: block; background-color: #1a1d20; color: white; text-decoration: none; padding: 6px; font-size: 11px; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
+        .botao-carrossel { display: block; background-color: #1a1d20; color: white; border: none; width: 100%; padding: 6px; font-size: 11px; font-weight: bold; border-radius: 4px; text-transform: uppercase; cursor: pointer; text-align: center; }
         .botao-carrossel:hover { background-color: #0dcaf0; }
-        /* ======================================================== */
 
         /* CONTÊINER PRINCIPAL EM COLUNAS */
         .conteudo-principal { display: flex; gap: 25px; max-width: 1100px; margin: 0 auto; padding: 0 15px; align-items: flex-start; }
@@ -33,6 +29,9 @@
         /* GRADE DE PRODUTOS EM 3 COLUNAS */
         .grade-produtos { display: flex; gap: 20px; flex: 1; justify-content: flex-start; flex-wrap: wrap; order: 1; }
         .cartao-produto { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 245px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; }
+        .cartao-produto img { width: 100%; height: 160px; object-fit: contain; border-radius: 6px; margin-bottom: 12px; }
+        .cartao-produto h3 { margin: 0 0 8px 0; font-size: 16px; color: #212529; text-align: left; }
+        .cartao-produto p { margin: 0 0 15px 0; color: #6c757d; font-size: 13px; flex-grow: 1; text-align: left; }
         .botao-comprar { background-color: #0dcaf0; color: white; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; text-decoration: none; text-align: center; }
         .preco { font-size: 22px; font-weight: bold; color: #198754; }
 
@@ -40,24 +39,20 @@
         .coluna-servicos { display: flex; flex-direction: column; gap: 20px; width: 280px; order: 2; }
         .banner-servico-box { position: relative; background-size: cover; background-position: center; width: 280px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); overflow: hidden; box-sizing: border-box; }
         .banner-overlay-dark { background: rgba(0, 0, 0, 0.55); padding: 25px 20px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; width: 100%; color: #ffffff; }
-        .texto-nitido-banner { margin: 0; color: #ffffff; font-size: 14px; line-height: 1.5; text-align: left; font-weight: bold; text-shadow: 2px 2px 4px #000000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+        .texto-nitido-banner { margin: 0; color: #ffffff; font-size: 14px; line-height: 1.5; text-align: left; font-weight: bold; text-shadow: 2px 2px 4px #000000; }
 
-        /* BOTÕES DE SERVIÇOS E WHATSAPP */
-        .botao-orcamento { display: block; background-color: #25D366; color: #ffffff !important; text-decoration: none; padding: 12px 10px; font-weight: bold; border-radius: 6px; font-size: 15px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); transition: background-color 0.2s, transform 0.2s; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
-        .botao-orcamento:hover { background-color: #128C7E; transform: translateY(-2px); color: #ffffff !important; }
-        .wp-jipnet-flutuante { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #25D366; color: #FFF; border-radius: 50px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
-        .wp-jipnet-flutuante:hover { transform: scale(1.1); background-color: #128C7E; }
+        /* BOTÕES DE SERVIÇOS AND WHATSAPP */
+        .botao-orcamento { display: block; background-color: #25D366; color: #ffffff !important; text-decoration: none; padding: 12px 10px; font-weight: bold; border-radius: 6px; font-size: 15px; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .botao-orcamento:hover { background-color: #128C7E; }
+        .wp-jipnet-flutuante { position: fixed; width: 60px; height: 60px; bottom: 20px; right: 20px; background-color: #25D366; color: #FFF; border-radius: 50px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center; }
         .wp-jipnet-flutuante img { width: 34px; height: 34px; display: block; margin: 0 auto; }
 
-        /* RESPONSIVIDADE MOBILE */
         @media (max-width: 900px) {
             .conteudo-principal { flex-direction: column; }
             .grade-produtos { order: 1; justify-content: center; }
             .coluna-servicos { width: 100%; order: 2; margin-top: 20px; }
             .banner-servico-box { width: 100%; }
             .cartao-produto { width: 100%; max-width: 320px; }
-            .wp-jipnet-flutuante { width: 50px; height: 50px; bottom: 15px; right: 15px; }
-            .wp-jipnet-flutuante img { width: 28px; height: 28px; }
         }
     </style>
 </head>
@@ -69,288 +64,191 @@
         <div style="font-size: 14px; margin-right: 15px;">Vantagens exclusivas para clientes JipNet Telecom</div>
     </div>
 
-  <!-- Banner Central -->
+    <!-- Banner Central -->
     <div class="banner">
         <h1 style="margin: 0 0 10px 0; color: #212529;">Bem-vindo à JipNet Store!</h1>
         <p style="margin: 0; color: #6c757d; font-size: 18px;">Aproveite os melhores acessórios e utilidades com entrega super rápida.</p>
     </div>
 
-    <!-- ======================================================== -->
-    <!-- BARRA ATUALIZADA: PROJETO CASA SEGURA JIPNET (R$ 39,90)  -->
-    <!-- ======================================================== -->
+    <!-- BARRA PROJETO CASA SEGURA JIPNET -->
     <div style="background: linear-gradient(135deg, #1a1d20, #212529); color: white; padding: 12px 20px; margin: 0 auto 25px auto; max-width: 1100px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 4px solid #ffc107; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-family: sans-serif;">
-        
-        <!-- Lado Esquerdo: Ícone + Novo Texto Comercial solicitado -->
         <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 260px;">
             <span style="font-size: 24px; line-height: 1;">🛡️</span>
             <div style="text-align: left;">
-                <strong style="color: #ffc107; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block;">
-                    Casa Segura JipNet
-                </strong>
-                <span style="color: #e9ecef; font-size: 13px; font-weight: 500; line-height: 1.4;">
-                    Sua casa protegida com câmeras Full HD e controle total pelo App no seu celular. Monitore sua casa com câmeras Wi-Fi por apenas <strong>R$ 39,90/mês</strong>. 24h por dia, 7 dias por semana!
-                </span>
+                <strong style="color: #ffc107; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Casa Segura JipNet</strong>
+                <span style="color: #e9ecef; font-size: 13px; font-weight: 500; line-height: 1.4;">Sua casa protegida com câmeras Full HD e controle total pelo App no seu celular. Monitore sua casa com câmeras Wi-Fi por apenas <strong>R$ 39,90/mês</strong>. 24h por dia, 7 dias por semana!</span>
             </div>
         </div>
-
-        <!-- Lado Direito: Botão Verde para o WhatsApp (CORRIGIDO) -->
         <div>
-            <a href="https://wa.me/5581996246670" 
-               target="_blank" 
-               style="display: inline-block; background-color: #25D366; color: white !important; text-decoration: none; padding: 8px 16px; font-weight: bold; border-radius: 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 6px rgba(37,211,102,0.2); white-space: nowrap;">
-                Quero Proteger
-            </a>
+            <a href="https://wa.me/5581996246670" target="_blank" style="display: inline-block; background-color: #25D366; color: white !important; text-decoration: none; padding: 8px 16px; font-weight: bold; border-radius: 20px; font-size: 13px;">Quero Proteger</a>
         </div>
     </div>
-    <!-- ======================================================== -->
 
-    <!-- ======================================================== -->
-    <!-- NOVO: CARROSSEL DE PRODUTOS DINÂMICO NO TOPO             -->
-    <!-- ======================================================== -->
-    <div class="seccao-carrossel" style="max-width: 1100px; margin: 0 auto 25px auto; overflow: hidden;">
-        <div class="titulo-carrossel" style="font-weight: bold; margin-bottom: 15px; font-size: 18px; color: #212529;">
-            <span>✨</span> Confira Nossa Variedade:
-        </div>
-        
-        <!-- Contêiner de rolagem automática horizontal via CSS -->
-        <div class="carrossel-container" id="carrosselRolagem" style="display: flex; gap: 15px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 10px;">
-            {% for item in produtos %}
-            <div class="item-carrossel" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); min-width: 180px; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <img src="{{ item[4] }}" alt="{{ item[1] }}" style="width: 100%; height: 100px; object-fit: contain; margin-bottom: 10px;">
-                    <h4 style="margin: 0 0 5px 0; font-size: 14px; color: #212529; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ item[1] }}</h4>
-                </div>
-                <div>
-                    <span class="preco-carrossel" style="font-weight: bold; color: #198754; display: block; margin-bottom: 8px;">R$ {{ item[3] }}</span>
-                    <button class="botao-add-carrinho" onclick="adicionarAoCarrinho('{{ item[1] }}', '{{ item[3] }}')" style="width: 100%; background-color: #6c757d; color: white; border: none; padding: 6px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 11px;">+ Carrinho</button>
-                </div>
+    <!-- NOVO: CARROSSEL DE PRODUTOS DINÂMICO DO TOPO -->
+    <div class="seccao-carrossel">
+        <div class="titulo-carrossel">✨ Confira Nossa Variedade:</div>
+        <div class="carrossel-container" id="carrosselRolagem">
+            {% for produto in produtos %}
+            <div class="item-carrossel">
+                <img src="{{ produto[4] }}" alt="{{ produto[1] }}" onerror="this.onerror=null; this.src='https://placehold.co';">
+                <h4>{{ produto[1] }}</h4>
+                <span class="preco-carrossel">R$ {{ "%.2f"|format(produto[3]|float) }}</span>
+                <form action="/comprar/{{ produto[0] }}" method="POST">
+                    <button type="submit" class="botao-carrossel">Pagar Só Este</button>
+                </form>
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <!-- ======================================================== -->
-    <!-- ÁREA DE CONTEÚDO DIVIDIDA                                -->
-    <!-- ======================================================== -->
+    <!-- CONTÊINER PRINCIPAL EM COLUNAS -->
     <div class="conteudo-principal">
         
-        <!-- VITRINE DE PRODUTOS -->
+        <!-- GRADE DE PRODUTOS DINÂMICA EM 3 COLUNAS -->
         <div class="grade-produtos">
-            {% for item in produtos %}
+            {% for produto in produtos %}
             <div class="cartao-produto">
-                <div>
-                    <img src="{{ item[4] }}" alt="{{ item[1] }}" style="width: 100%; height: 180px; object-fit: contain; border-radius: 5px; margin-bottom: 15px;">
-                    <h3 style="margin: 0 0 10px 0; color: #212529; font-size: 16px; font-weight: bold;">{{ item[1] }}</h3>
-                    <p style="color: #6c757d; font-size: 13px; margin-bottom: 20px; min-height: 60px; line-height: 1.3;">{{ item[2] }}</p>
-                </div>
-                
-                <div style="border-top: 1px solid #eee; padding-top: 15px;">
-                    <div style="margin-bottom: 12px; text-align: center;">
-                        <span class="preco">R$ {{ item[3] }}</span>
-                    </div>
-                    
-                    <div style="display: flex; gap: 8px;">
-                        <!-- Botão 1: Adiciona ao carrinho unificado -->
-                        <button class="botao-add-carrinho" onclick="adicionarAoCarrinho('{{ item[1] }}', '{{ item[3] }}')" style="background-color: #6c757d; color: white; border: none; padding: 8px 10px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 12px; flex: 1;">+ Carrinho</button>
-                        
-                        <!-- Botão 2: Compra imediata de um único item -->
-                        <form action="/comprar/{{ item[0] }}" method="POST" style="margin: 0; flex: 1;">
-                            <button type="submit" class="botao-comprar" style="width: 100%; font-size: 12px; padding: 8px 10px;">Pagar Só Este</button>
-                        </form>
-                    </div>
+                <img src="{{ produto[4] }}" alt="{{ produto[1] }}" onerror="this.onerror=null; this.src='https://placehold.co';">
+                <h3>{{ produto[1] }}</h3>
+                <p>{{ produto[2] }}</p>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
+                    <span class="preco">R$ {{ "%.2f"|format(produto[3]|float) }}</span>
+                    <!-- Integração correta com o teu Script do Carrinho local -->
+                    <button class="botao-comprar" onclick="adicionarAoCarrinho('{{ produto[1] }}', '{{ produto[3] }}')">+ Carrinho</button>
                 </div>
             </div>
             {% endfor %}
         </div>
 
-        <!-- COLUNA DA DIREITA COM OS BANNERS DE MANUTENÇÃO -->
+        <!-- COLUNA DA DIREITA: BANNERS DE SERVIÇOS -->
         <div class="coluna-servicos">
-            <!-- 1º BANNER: CELULARES -->
-            <div class="banner-servico-box" style="background-image: url('/static/tela.png');">
+            <div class="banner-servico-box" style="background-image: url('https://unsplash.com');">
                 <div class="banner-overlay-dark">
-                    <div>
+                    <div style="text-align: left;">
                         <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️📱</span>
-                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">
-                            Consertamos seu Celular!
-                        </h2>
-                        <p class="texto-nitido-banner">
-                            Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!
-                        </p>
-                    </div>
-                    <a href="https://wa.me/5581996246670" target="_blank" class="botao-orcamento">Fazer Orçamento</a>
+// Rolagem Automática do Carrossel de Produtos
+const carrossel = document.getElementById('carrosselRolagem');
+function rolagemAutomatica() {
+    if (carrossel) {
+        if (carrossel.scrollLeft + carrossel.clientWidth >= carrossel.scrollWidth - 5) {
+            carrossel.scrollLeft = 0;
+        } else {
+            carrossel.scrollLeft += 200;
+        }
+    }
+}
+setInterval(rolagemAutomatica, 4000);
+
+// Sistema de Memória do Carrinho Avançado
+let carrinho = [];
+
+function adicionarAoCarrinho(nome, preco) {
+    let itemExistente = carrinho.find(item => item.nome === nome);
+    if (itemExistente) {
+        itemExistente.quantidade += 1;
+    } else {
+        carrinho.push({ nome: nome, preco: parseFloat(preco), quantidade: 1 });
+    }
+    atualizarBarraCarrinho();
+}
+
+function removerDoCarrinho(nome) {
+    let itemIndex = carrinho.findIndex(item => item.nome === nome);
+    if (itemIndex > -1) {
+        carrinho[itemIndex].quantidade -= 1;
+        if (carrinho[itemIndex].quantidade <= 0) {
+            carrinho.splice(itemIndex, 1);
+        }
+    }
+    atualizarBarraCarrinho();
+}
+
+function toggleJanelaCarrinho(event) {
+    if (event) event.stopPropagation();
+    const janela = document.getElementById('janelaItensCarrinho');
+    if (carrinho.length === 0) {
+        if(janela) janela.style.display = 'none';
+        return;
+    }
+    if(janela) {
+        janela.style.display = (janela.style.display === 'flex') ? 'none' : 'flex';
+    }
+}
+
+function atualizarBarraCarrinho() {
+    const barra = document.getElementById('barraCarrinho');
+    const texto = document.getElementById('textoCarrinho');
+    const listaInterna = document.getElementById('listaItensInterna');
+    const janela = document.getElementById('janelaItensCarrinho');
+    
+    if (carrinho.length === 0) {
+        if(barra) barra.style.display = 'none';
+        if(janela) janela.style.display = 'none'; // Corrigido de JANELA para janela
+        return;
+    }
+    
+    let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+    let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
+    
+    if(barra) barra.style.display = 'flex';
+    if(texto) texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`; // Corrigido: Adicionadas crases
+
+    if(listaInterna) {
+        listaInterna.innerHTML = "";
+        carrinho.forEach(item => {
+            let subtotal = item.preco * item.quantidade;
+            // Corrigido: Adicionadas crases para envelopar o HTML string corretamente
+            listaInterna.innerHTML += `
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; font-size: 13px; color: #333;"> 
+                    <div style="flex: 1; padding-right: 5px; text-align: left;"> 
+                        <strong>${item.quantidade}x</strong> ${item.nome} 
+                        <span style="display:block; font-size:11px; color:#888;">Sub: R$ ${subtotal.toFixed(2)}</span> 
+                    </div> 
+                    <button onclick="removerDoCarrinho('${item.nome}')" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">✕</button> 
                 </div>
-            </div>
+            `;
+        });
+    }
+}
 
-            <!-- 2º BANNER: COMPUTADORES -->
-            <div class="banner-servico-box" style="background-image: url('/static/conserto.png');">
-                <div class="banner-overlay-dark">
-                    <div>
-                        <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️💻</span>
-                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">
-                            Manutenção de PCs!
-                        </h2>
-                        <p class="texto-nitido-banner">
-                            Computadores, notebooks e impressoras com problemas? Formatação, limpeza preventiva, troca de peças e reparos rápidos com técnico especializado.
-                        </p>
-                    </div>
-                    <a href="https://wa.me/5581996246670" target="_blank" class="botao-orcamento">Fazer Orçamento</a>
-                </div>
-            </div>
-        </div>
-
-    </div> <!-- FIM DA ÁREA DIVIDIDA -->
-
-    <!-- 2. Barra Fixa de Resumo (Agora clicável para abrir a lista) -->
-    <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 25px; border-radius: 50px; display: none; align-items: center; gap: 15px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif; cursor: pointer;" onclick="toggleJanelaCarrinho(event)">
-        <span id="textoCarrinho" style="font-weight: bold; font-size: 14px;">🛒 0 itens | Total: R$ 0.00</span>
-        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho(event)" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Finalizar Compra</button>
-    </div>
-    <!-- ======================================================== -->
-
-
-    <!-- Rodapé -->
-    <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
-        &copy; 2026 JipNet Store - Todos os direitos reservados.
-    </div>
-
-
-    <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
-    <a href="https://wa.me/5581996246670" class="wp-jipnet-flutuante" target="_blank">
-        <img src="/static/zap.png" alt="WhatsApp">
-    </a>
-
-    <!-- LÓGICA DO CARROSSEL DE ROLAGEM E CARRINHO -->
-    <script>
-        // Rolagem Automática do Carrossel de Produtos
-        const carrossel = document.getElementById('carrosselRolagem');
-        function rolagemAutomatica() {
-            if (carrossel) {
-                // Se chegar ao fim da lista, volta para o início
-                if (carrossel.scrollLeft + carrossel.clientWidth >= carrossel.scrollWidth - 5) {
-                    carrossel.scrollLeft = 0;
-                } else {
-                    carrossel.scrollLeft += 200; // Avança uma largura de cartão
-                }
-            }
-        }
-        setInterval(rolagemAutomatica, 4000); // Rola a cada 4 segundos
-
-        // Sistema de Memória do Carrinho Avançado (Sem mexer no banco)
-        let carrinho = [];
-
-        function adicionarAoCarrinho(nome, preco) {
-            let itemExistente = carrinho.find(item => item.nome === nome);
-            if (itemExistente) {
-                itemExistente.quantidade += 1;
-            } else {
-                carrinho.push({ nome: nome, preco: parseFloat(preco), quantidade: 1 });
-            }
+function finalizarCompraCarrinho(event) {
+    if (event) event.stopPropagation();
+    if (carrinho.length === 0) return;
+    
+    const btn = document.getElementById('btnPagarTodos');
+    if(btn) {
+        btn.innerText = "A processar...";
+        btn.disabled = true;
+    }
+    
+    fetch('/comprar_carrinho', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ itens: carrinho })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.init_point) {
+            carrinho = [];
             atualizarBarraCarrinho();
-        }
-
-        // NOVO: Função para diminuir quantidade ou apagar o produto
-        function removerDoCarrinho(nome) {
-            let itemIndex = carrinho.findIndex(item => item.nome === nome);
-            if (itemIndex > -1) {
-                carrinho[itemIndex].quantidade -= 1;
-                if (carrinho[itemIndex].quantidade <= 0) {
-                    carrinho.splice(itemIndex, 1); // Remove da lista se chegar a zero
-                }
-            }
-            atualizarBarraCarrinho();
-        }
-
-        // NOVO: Abre e fecha a caixinha de revisão de produtos ao clicar na barra
-        function toggleJanelaCarrinho(event) {
-            if (event) event.stopPropagation(); // Evita conflitos de cliques no botão
-            const janela = document.getElementById('janelaItensCarrinho');
-            if (carrinho.length === 0) {
-                if(janela) janela.style.display = 'none';
-                return;
-            }
-            if(janela) {
-                janela.style.display = (janela.style.display === 'flex') ? 'none' : 'flex';
-            }
-        }
-
-        function atualizarBarraCarrinho() {
-            const barra = document.getElementById('barraCarrinho');
-            const texto = document.getElementById('textoCarrinho');
-            const listaInterna = document.getElementById('listaItensInterna');
-            const janela = document.getElementById('janelaItensCarrinho');
-            
-            if (carrinho.length === 0) {
-                if(barra) barra.style.display = 'none';
-                if(janela) janela.style.display = 'none';
-                return;
-            }
-            
-            let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
-            let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
-            
-            if(barra) barra.style.display = 'flex';
-            if(texto) texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`;
-
-            // NOVO: Constrói a lista visual com os botões de apagar (✕)
-            if(listaInterna) {
-                listaInterna.innerHTML = "";
-                carrinho.forEach(item => {
-                    let subtotal = item.preco * item.quantidade;
-                    listaInterna.innerHTML += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; font-size: 13px; color: #333;">
-                            <div style="flex: 1; padding-right: 5px; text-align: left;">
-                                <strong>${item.quantidade}x</strong> ${item.nome}
-                                <span style="display:block; font-size:11px; color:#888;">Sub: R$ ${subtotal.toFixed(2)}</span>
-                            </div>
-                            <button onclick="removerDoCarrinho('${item.nome}')" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">✕</button>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        function finalizarCompraCarrinho(event) {
-            if (event) event.stopPropagation(); // Impede fechar a janela ao clicar em pagar
-            if (carrinho.length === 0) return;
-            
-            const btn = document.getElementById('btnPagarTodos');
+            window.location.href = data.init_point;
+        } else {
+            alert("Erro ao processar carrinho. Tente novamente.");
             if(btn) {
-                btn.innerText = "A processar...";
-                btn.disabled = true;
+                btn.innerText = "Finalizar Compra";
+                btn.disabled = false;
             }
-
-            fetch('/comprar_carrinho', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify({ itens: carrinho })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.init_point) {
-                    carrinho = [];
-                    atualizarBarraCarrinho();
-                    window.location.href = data.init_point; 
-                } else {
-                    alert("Erro ao processar carrinho. Tente novamente.");
-                    if(btn) {
-                        btn.innerText = "Finalizar Compra";
-                        btn.disabled = false;
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert("Falha de conexão com o servidor.");
-                if(btn) {
-                    btn.innerText = "Finalizar Compra";
-                    btn.disabled = false;
-                }
-            });
         }
-    </script>
-</body>
-</html>
-
-
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert("Falha de conexão com o servidor.");
+        if(btn) {
+            btn.innerText = "Finalizar Compra";
+            btn.disabled = false;
+        }
+    });
+}
+ 
