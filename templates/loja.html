@@ -159,7 +159,7 @@
         <div id="listaItensInterna" style="display: flex; flex-direction: column; gap: 10px;"></div>
     </div>
 
-    <!-- RODAPÉ -->
+    <!-- Rodapé -->
     <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
         &copy; 2026 JipNet Store - Todos os direitos reservados.
     </div>
@@ -169,93 +169,50 @@
         <span style="font-size:30px; line-height: 55px; color:white;">💬</span>
     </a>
 
-    <!-- SCRIPT JAVASCRIPT (COMPLETO) -->
+    <!-- SCRIPT CORRIGIDO -->
     <script>
-        const carrossel = document.getElementById('carrosselRolagem');
-        function rolagemAutomatica() {
-            if (carrossel) {
-                if (carrossel.scrollLeft + carrossel.clientWidth >= carrossel.scrollWidth - 5) {
-                    carrossel.scrollLeft = 0;
-                } else {
-                    carrossel.scrollLeft += 200;
-                }
-            }
-        }
-        setInterval(rolagemAutomatica, 4000);
-
-        let carrinho = [];
-
-        function adicionarAoCarrinho(nome, preco) {
-            let itemExistente = carrinho.find(item => item.nome === nome);
-            if (itemExistente) {
-                itemExistente.quantidade += 1;
-            } else {
-                carrinho.push({ nome: nome, preco: parseFloat(preco), quantidade: 1 });
-            }
-            atualizarBarraCarrinho();
-        }
-
-        function removerDoCarrinho(nome) {
-            let itemIndex = carrinho.findIndex(item => item.nome === nome);
-            if (itemIndex > -1) {
-                carrinho[itemIndex].quantidade -= 1;
-                if (carrinho[itemIndex].quantidade <= 0) {
-                    carrinho.splice(itemIndex, 1);
-                }
-            }
-            atualizarBarraCarrinho();
-        }
-
-        function toggleJanelaCarrinho(event) {
-            if (event) event.stopPropagation();
-            const janela = document.getElementById('janelaItensCarrinho');
-            if (carrinho.length === 0) {
-                if(janela) janela.style.display = 'none';
-                return;
-            }
-            if(janela) {
-                janela.style.display = (janela.style.display === 'flex') ? 'none' : 'flex';
-            }
-        }
-
-        function atualizarBarraCarrinho() {
-            const barra = document.getElementById('barraCarrinho');
-            const texto = document.getElementById('textoCarrinho');
-            const listaInterna = document.getElementById('listaItensInterna');
-            const janela = document.getElementById('janelaItensCarrinho');
+        function finalizarCompraCarrinho(event) { 
+            if (event) event.stopPropagation(); 
+            if (carrinho.length === 0) return; 
             
-            if (carrinho.length === 0) {
-                if(barra) barra.style.display = 'none';
-                if(janela) janela.style.display = 'none';
-                return;
-            }
+            const btn = document.getElementById('btnPagarTodos'); 
+            if(btn) { 
+                btn.innerText = "A processar..."; 
+                btn.disabled = true; 
+            } 
             
-            let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
-            let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
-            
-            if(barra) barra.style.display = 'flex';
-            if(texto) texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`;
-
-            if(listaInterna) {
-                listaInterna.innerHTML = "";
-                carrinho.forEach(item => {
-                    let subtotal = item.preco * item.quantidade;
-                    listaInterna.innerHTML += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; font-size: 13px; color: #333;"> 
-                            <div style="flex: 1; padding-right: 5px; text-align: left;"> 
-                                <strong>${item.quantidade}x</strong> ${item.nome} 
-                                <span style="display:block; font-size:11px; color:#888;">Sub: R$ ${subtotal.toFixed(2)}</span> 
-                            </div> 
-                            <button onclick="removerDoCarrinho('${item.nome}')" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">✕</button> 
-                        </div>
-                    `;
-                });
-            }
+            fetch('/comprar_carrinho', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ itens: carrinho }) 
+            }) 
+            .then(response => response.json()) 
+            .then(data => { 
+                if (data.init_point) { 
+                    carrinho = []; 
+                    atualizarBarraCarrinho(); 
+                    window.location.href = data.init_point; 
+                } else { 
+                    alert("Erro ao processar carrinho. Tente novamente."); 
+                    if(btn) { 
+                        btn.innerText = "Finalizar Compra"; 
+                        btn.disabled = false; 
+                    } 
+                } 
+            }) 
+            .catch(error => { 
+                console.error('Erro:', error); 
+                alert("Falha de conexão com o servidor."); 
+                if(btn) { 
+                    btn.innerText = "Finalizar Compra"; 
+                    btn.disabled = false; 
+                } 
+            }); 
         }
-
-        function finalizarCompraCarrinho(event) {
-            if (event) event.stopPropagation();
-            if (carrinho.length === 0) return;
+    </script>
+</body>
+</html>
+ngth === 0) return;
             
             const btn = document.getElementById('btnPagarTodos');
             if(btn) {
