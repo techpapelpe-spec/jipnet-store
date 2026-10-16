@@ -120,96 +120,139 @@
             {% endfor %}
         </div>
 
-        <!-- COLUNA DA DIREITA: BANNERS DE SERVIÇOS -->
+<!-- COLUNA DA DIREITA: BANNERS DE SERVIÇOS -->
         <div class="coluna-servicos">
             <div class="banner-servico-box" style="background-image: url('https://unsplash.com');">
                 <div class="banner-overlay-dark">
                     <div style="text-align: left;">
                         <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️📱</span>
-// Rolagem Automática do Carrossel de Produtos
-const carrossel = document.getElementById('carrosselRolagem');
-function rolagemAutomatica() {
-    if (carrossel) {
-        if (carrossel.scrollLeft + carrossel.clientWidth >= carrossel.scrollWidth - 5) {
-            carrossel.scrollLeft = 0;
-        } else {
-            carrossel.scrollLeft += 200;
-        }
-    }
-}
-setInterval(rolagemAutomatica, 4000);
-
-// Sistema de Memória do Carrinho Avançado
-let carrinho = [];
-
-function adicionarAoCarrinho(nome, preco) {
-    let itemExistente = carrinho.find(item => item.nome === nome);
-    if (itemExistente) {
-        itemExistente.quantidade += 1;
-    } else {
-        carrinho.push({ nome: nome, preco: parseFloat(preco), quantidade: 1 });
-    }
-    atualizarBarraCarrinho();
-}
-
-function removerDoCarrinho(nome) {
-    let itemIndex = carrinho.findIndex(item => item.nome === nome);
-    if (itemIndex > -1) {
-        carrinho[itemIndex].quantidade -= 1;
-        if (carrinho[itemIndex].quantidade <= 0) {
-            carrinho.splice(itemIndex, 1);
-        }
-    }
-    atualizarBarraCarrinho();
-}
-
-function toggleJanelaCarrinho(event) {
-    if (event) event.stopPropagation();
-    const janela = document.getElementById('janelaItensCarrinho');
-    if (carrinho.length === 0) {
-        if(janela) janela.style.display = 'none';
-        return;
-    }
-    if(janela) {
-        janela.style.display = (janela.style.display === 'flex') ? 'none' : 'flex';
-    }
-}
-
-function atualizarBarraCarrinho() {
-    const barra = document.getElementById('barraCarrinho');
-    const texto = document.getElementById('textoCarrinho');
-    const listaInterna = document.getElementById('listaItensInterna');
-    const janela = document.getElementById('janelaItensCarrinho');
-    
-    if (carrinho.length === 0) {
-        if(barra) barra.style.display = 'none';
-        if(janela) janela.style.display = 'none'; // Corrigido de JANELA para janela
-        return;
-    }
-    
-    let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
-    let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
-    
-    if(barra) barra.style.display = 'flex';
-    if(texto) texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`; // Corrigido: Adicionadas crases
-
-    if(listaInterna) {
-        listaInterna.innerHTML = "";
-        carrinho.forEach(item => {
-            let subtotal = item.preco * item.quantidade;
-            // Corrigido: Adicionadas crases para envelopar o HTML string corretamente
-            listaInterna.innerHTML += `
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; font-size: 13px; color: #333;"> 
-                    <div style="flex: 1; padding-right: 5px; text-align: left;"> 
-                        <strong>${item.quantidade}x</strong> ${item.nome} 
-                        <span style="display:block; font-size:11px; color:#888;">Sub: R$ ${subtotal.toFixed(2)}</span> 
-                    </div> 
-                    <button onclick="removerDoCarrinho('${item.nome}')" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">✕</button> 
+                        <h2 style="margin: 0 0 10px 0; color: #ffc107; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">Consertamos seu Celular!</h2>
+                        <p class="texto-nitido-banner">Tela quebrada, bateria viciada ou o aparelho não liga? Fazemos a manutenção com total garantia e rapidez para clientes da nossa rede. Traga seu aparelho!</p>
+                    </div>
+                    <a href="https://wa.me" target="_blank" class="botao-orcamento">Fazer Orçamento</a>
                 </div>
-            `;
-        });
-    }
-}
+            </div>
+
+            <div class="banner-servico-box" style="background-image: url('https://unsplash.com');">
+                <div class="banner-overlay-dark">
+                    <div style="text-align: left;">
+                        <span style="font-size: 32px; display: block; margin-bottom: 5px; text-align: center;">🛠️💻</span>
+                        <h2 style="margin: 0 0 10px 0; color: #0dcaf0; font-size: 19px; font-weight: bold; text-transform: uppercase; text-align: center; letter-spacing: 0.5px; text-shadow: 2px 2px 3px #000;">Manutenção de PCs!</h2>
+                        <p class="texto-nitido-banner">Computadores, notebooks e impressoras com problemas? Formatação, limpeza preventiva, troca de peças e reparos rápidos com técnico especializado.</p>
+                    </div>
+                    <a href="https://wa.me" target="_blank" class="botao-orcamento">Fazer Orçamento</a>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- FIM DA ÁREA DIVIDIDA (conteudo-principal) -->
+
+    <!-- BARRA FIXA DO CARRINHO -->
+    <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 25px; border-radius: 50px; display: none; align-items: center; gap: 15px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif; cursor: pointer;" onclick="toggleJanelaCarrinho(event)">
+        <span id="textoCarrinho" style="font-weight: bold; font-size: 14px;">🛒 0 itens | Total: R\$ 0.00</span>
+        <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho(event)" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Finalizar Compra</button>
+    </div>
+
+    <!-- JANELA DE REVISÃO DO CARRINHO -->
+    <div id="janelaItensCarrinho" style="position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background: white; width: 280px; max-height: 300px; overflow-y: auto; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; flex-direction: column; padding: 15px; gap: 10px; z-index: 99999;">
+        <div style="font-weight: bold; font-size: 14px; color: #1a1d20; border-bottom: 2px solid #0dcaf0; padding-bottom: 5px;">Itens no Carrinho:</div>
+        <div id="listaItensInterna" style="display: flex; flex-direction: column; gap: 10px;"></div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div style="text-align: center; margin-top: 50px; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
+        &copy; 2026 JipNet Store - Todos os direitos reservados.
+    </div>
+
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+    <a href="https://wa.me" class="wp-jipnet-flutuante" target="_blank">
+        <span style="font-size:30px; line-height: 55px; color:white;">💬</span>
+    </a>
+
+    <!-- SCRIPT JAVASCRIPT (ABERTURA DA TAG) -->
+    <script>
+        const carrossel = document.getElementById('carrosselRolagem');
+        function rolagemAutomatica() {
+            if (carrossel) {
+                if (carrossel.scrollLeft + carrossel.clientWidth >= carrossel.scrollWidth - 5) {
+                    carrossel.scrollLeft = 0;
+                } else {
+                    carrossel.scrollLeft += 200;
+                }
+            }
+        }
+        setInterval(rolagemAutomatica, 4000);
+
+        let carrinho = [];
+
+        function adicionarAoCarrinho(nome, preco) {
+            let itemExistente = carrinho.find(item => item.nome === nome);
+            if (itemExistente) {
+                itemExistente.quantidade += 1;
+            } else {
+                carrinho.push({ nome: nome, preco: parseFloat(preco), quantity: 1 }); // Corrigido para quantity para bater com a tua API Flask
+            }
+            atualizarBarraCarrinho();
+        }
+
+        function removerDoCarrinho(nome) {
+            let itemIndex = carrinho.findIndex(item => item.nome === nome);
+            if (itemIndex > -1) {
+                carrinho[itemIndex].quantidade -= 1;
+                if (carrinho[itemIndex].quantidade <= 0) {
+                    carrinho.splice(itemIndex, 1);
+                }
+            }
+            atualizarBarraCarrinho();
+        }
+
+        function toggleJanelaCarrinho(event) {
+            if (event) event.stopPropagation();
+            const janela = document.getElementById('janelaItensCarrinho');
+            if (carrinho.length === 0) {
+                if(janela) janela.style.display = 'none';
+                return;
+            }
+            if(janela) {
+                janela.style.display = (janela.style.display === 'flex') ? 'none' : 'flex';
+            }
+        }
+
+        function atualizarBarraCarrinho() {
+            const barra = document.getElementById('barraCarrinho');
+            const texto = document.getElementById('textoCarrinho');
+            const listaInterna = document.getElementById('listaItensInterna');
+            const janela = document.getElementById('janelaItensCarrinho');
+            
+            if (carrinho.length === 0) {
+                if(barra) barra.style.display = 'none';
+                if(janela) janela.style.display = 'none';
+                return;
+            }
+            
+            let totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+            let valorTotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
+            
+            if(barra) barra.style.display = 'flex';
+            if(texto) texto.innerText = `🛒 ${totalItens} itens | Total: R$ ${valorTotal.toFixed(2)}`;
+
+            if(listaInterna) {
+                listaInterna.innerHTML = "";
+                carrinho.forEach(item => {
+                    let subtotal = item.preco * item.quantidade;
+                    listaInterna.innerHTML += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #eee; padding-bottom: 5px; font-size: 13px; color: #333;"> 
+                            <div style="flex: 1; padding-right: 5px; text-align: left;"> 
+                                <strong>${item.quantidade}x</strong> ${item.nome} 
+                                <span style="display:block; font-size:11px; color:#888;">Sub: R$ ${subtotal.toFixed(2)}</span> 
+                            </div> 
+                            <button onclick="removerDoCarrinho('${item.nome}')" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">✕</button> 
+                        </div>
+                    `;
+                });
+            }
+        }
+
 
 function finalizarCompraCarrinho(event) {
     if (event) event.stopPropagation();
