@@ -147,7 +147,7 @@
 
     </div> <!-- FIM DA ÁREA DIVIDIDA (conteudo-principal) -->
 
-    <!-- BARRA FIXA DO CARRINHO -->
+<!-- BARRA FIXA DO CARRINHO -->
     <div class="barra-carrinho-mp" id="barraCarrinho" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1a1d20; color: white; padding: 12px 25px; border-radius: 50px; display: none; align-items: center; gap: 15px; box-shadow: 0 6px 25px rgba(0,0,0,0.4); z-index: 99998; font-family: sans-serif; cursor: pointer;" onclick="toggleJanelaCarrinho(event)">
         <span id="textoCarrinho" style="font-weight: bold; font-size: 14px;">🛒 0 itens | Total: R\$ 0.00</span>
         <button class="btn-finalizar-mp" id="btnPagarTodos" onclick="finalizarCompraCarrinho(event)" style="background-color: #0dcaf0; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 25px; cursor: pointer; font-size: 14px;">Finalizar Compra</button>
@@ -169,7 +169,7 @@
         <span style="font-size:30px; line-height: 55px; color:white;">💬</span>
     </a>
 
-    <!-- SCRIPT JAVASCRIPT (ABERTURA DA TAG) -->
+    <!-- SCRIPT JAVASCRIPT (COMPLETO) -->
     <script>
         const carrossel = document.getElementById('carrosselRolagem');
         function rolagemAutomatica() {
@@ -190,7 +190,7 @@
             if (itemExistente) {
                 itemExistente.quantidade += 1;
             } else {
-                carrinho.push({ nome: nome, preco: parseFloat(preco), quantity: 1 }); // Corrigido para quantity para bater com a tua API Flask
+                carrinho.push({ nome: nome, preco: parseFloat(preco), quantidade: 1 });
             }
             atualizarBarraCarrinho();
         }
@@ -252,6 +252,50 @@
                 });
             }
         }
+
+        function finalizarCompraCarrinho(event) {
+            if (event) event.stopPropagation();
+            if (carrinho.length === 0) return;
+            
+            const btn = document.getElementById('btnPagarTodos');
+            if(btn) {
+                btn.innerText = "A processar...";
+                btn.disabled = true;
+            }
+
+            fetch('/comprar_carrinho', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({ itens: carrinho })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.init_point) {
+                    carrinho = [];
+                    atualizarBarraCarrinho();
+                    window.location.href = data.init_point;
+                } else {
+                    alert("Erro ao processar carrinho. Tente novamente.");
+                    if(btn) {
+                        btn.innerText = "Finalizar Compra";
+                        btn.disabled = false;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert("Falha de conexão com o servidor.");
+                if(btn) {
+                    btn.innerText = "Finalizar Compra";
+                    btn.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
 
 
 function finalizarCompraCarrinho(event) {
