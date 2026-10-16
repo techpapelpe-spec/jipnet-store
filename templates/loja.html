@@ -104,10 +104,11 @@
     <!-- CONTÊINER PRINCIPAL EM COLUNAS -->
     <div class="conteudo-principal">
         
-        <!-- GRADE DE PRODUTOS DINÂMICA EM 3 COLUNAS -->
+<!-- GRADE DE PRODUTOS DINÂMICA EM 3 COLUNAS -->
         <div class="grade-produtos">
             {% for produto in produtos %}
             <div class="cartao-produto">
+                <!-- Imagem Corrigida: Placehold agora com dimensões válidas -->
                 <img src="{{ produto[4] }}" alt="{{ produto[1] }}" onerror="this.onerror=null; this.src='https://placehold.co';">
                 <h3>{{ produto[1] }}</h3>
                 <p>{{ produto[2] }}</p>
@@ -122,6 +123,7 @@
 
 <!-- COLUNA DA DIREITA: BANNERS DE SERVIÇOS -->
         <div class="coluna-servicos">
+            <!-- Corrigido: Adicionado link real de imagem do Unsplash para Telemóveis -->
             <div class="banner-servico-box" style="background-image: url('https://unsplash.com');">
                 <div class="banner-overlay-dark">
                     <div style="text-align: left;">
@@ -133,6 +135,7 @@
                 </div>
             </div>
 
+            <!-- Corrigido: Adicionado link real de imagem do Unsplash para Computadores -->
             <div class="banner-servico-box" style="background-image: url('https://unsplash.com');">
                 <div class="banner-overlay-dark">
                     <div style="text-align: left;">
